@@ -62,4 +62,52 @@ public class CryptocurrencyServiceTests
             }
         }
     }
+
+    [Fact]
+    public async void Should_GetCurrentPriceThrowArgumentNullException_When_GetCurrentPriceQueryIsNull()
+    {
+        var coinGeckoClientMoq = new Mock<ICoinGeckoClient>();
+        var cryptocurrencyService = new CryptocurrencyService(coinGeckoClientMoq.Object);
+
+        Func<Task> action = async () => await cryptocurrencyService.GetCurrentPrice(null!);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentNullException>();
+        exception.WithMessage("Value cannot be null. (Parameter 'query')");
+    }
+
+    [Fact]
+    public async void Should_GetCurrentPriceThrowArgumentException_When_GetCurrentPriceQueryCurrencyIsNull()
+    {
+        var getCurrentPriceQuery = new GetCurrentPriceQuery()
+        {
+            Coins = new[] { "bitcoin", "ethereum", "cardano" },
+            Currencies = null!
+        };
+
+        var coinGeckoClientMoq = new Mock<ICoinGeckoClient>();
+        var cryptocurrencyService = new CryptocurrencyService(coinGeckoClientMoq.Object);
+
+        Func<Task> action = async () => await cryptocurrencyService.GetCurrentPrice(getCurrentPriceQuery);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentException>();
+        exception.WithMessage("Currencies");
+    }
+
+    [Fact]
+    public async void Should_GetCurrentPriceThrowArgumentException_When_GetCurrentPriceQueryCoinsIsNull()
+    {
+        var getCurrentPriceQuery = new GetCurrentPriceQuery()
+        {
+            Coins = null!,
+            Currencies = new[] { "eur", "usd", "gbp", "jpy" }
+        };
+
+        var coinGeckoClientMoq = new Mock<ICoinGeckoClient>();
+        var cryptocurrencyService = new CryptocurrencyService(coinGeckoClientMoq.Object);
+
+        Func<Task> action = async () => await cryptocurrencyService.GetCurrentPrice(getCurrentPriceQuery);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentException>();
+        exception.WithMessage("Coins");
+    }
 }

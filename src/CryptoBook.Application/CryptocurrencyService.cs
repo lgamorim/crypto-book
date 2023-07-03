@@ -13,6 +13,10 @@ public class CryptocurrencyService : ICryptocurrencyService
 
     public async Task<CurrentPriceView> GetCurrentPrice(GetCurrentPriceQuery query)
     {
+        if (query is null) throw new ArgumentNullException(nameof(query));
+        if (query.Coins is null) throw new ArgumentException(nameof(query.Coins));
+        if (query.Currencies is null) throw new ArgumentException(nameof(query.Currencies));
+
         var simplePriceRequest = new SimplePriceRequest()
         {
             Coins = query.Coins,
