@@ -17,6 +17,10 @@ public class CoinGeckoClient : ICoinGeckoClient
 
     public async Task<SimplePriceResponse> GetSimplePrice(SimplePriceRequest request)
     {
+        if (request is null) throw new ArgumentNullException(nameof(request));
+        if (request.Coins is null) throw new ArgumentException(nameof(request.Coins));
+        if (request.Currencies is null) throw new ArgumentException(nameof(request.Currencies));
+        
         const char separator = ',';
         var apiArgIds = string.Join(separator, request.Coins);
         var apiArgCurrencies = string.Join(separator, request.Currencies);

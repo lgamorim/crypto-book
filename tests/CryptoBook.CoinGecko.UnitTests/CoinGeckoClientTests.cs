@@ -55,4 +55,52 @@ public class CoinGeckoClientTests
         simplePriceResponse.CryptocurrencyPrices.Should().NotBeNull().And.HaveCount(3);
         simplePriceResponse.CryptocurrencyPrices.Should().BeEquivalentTo(coinGeckoResponse);
     }
+
+    [Fact]
+    public async void Should_GetSimplePriceThrowArgumentNullException_When_SimplePriceRequestIsNull()
+    {
+        var httpClient = new HttpClient(new Mock<HttpMessageHandler>().Object);
+        var coinGeckoClient = new CoinGeckoClient(httpClient);
+
+        Func<Task> action = async () => await coinGeckoClient.GetSimplePrice(null!);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentNullException>();
+        exception.WithMessage("Value cannot be null. (Parameter 'request')");
+    }
+
+    [Fact]
+    public async void Should_GetSimplePriceThrowArgumentException_When_SimplePriceRequestCurrenciesIsNull()
+    {
+        var simplePriceRequest = new SimplePriceRequest()
+        {
+            Coins = new[] { "bitcoin", "ethereum", "cardano" },
+            Currencies = null!
+        };
+
+        var httpClient = new HttpClient(new Mock<HttpMessageHandler>().Object);
+        var coinGeckoClient = new CoinGeckoClient(httpClient);
+
+        Func<Task> action = async () => await coinGeckoClient.GetSimplePrice(simplePriceRequest);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentException>();
+        exception.WithMessage("Currencies");
+    }
+
+    [Fact]
+    public async void Should_GetSimplePriceThrowArgumentException_When_SimplePriceRequestCoinsIsNull()
+    {
+        var simplePriceRequest = new SimplePriceRequest()
+        {
+            Coins = null!,
+            Currencies = new[] { "eur", "usd", "gbp", "jpy" }
+        };
+
+        var httpClient = new HttpClient(new Mock<HttpMessageHandler>().Object);
+        var coinGeckoClient = new CoinGeckoClient(httpClient);
+
+        Func<Task> action = async () => await coinGeckoClient.GetSimplePrice(simplePriceRequest);
+
+        var exception = await action.Should().ThrowExactlyAsync<ArgumentException>();
+        exception.WithMessage("Coins");
+    }
 }
