@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBook.CoinGecko", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBook.Application.UnitTests", "tests\CryptoBook.Application.UnitTests\CryptoBook.Application.UnitTests.csproj", "{3CFEBCAD-150D-49B9-8EC5-66889C92CA65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoBook.CoinGecko.UnitTests", "tests\CryptoBook.CoinGecko.UnitTests\CryptoBook.CoinGecko.UnitTests.csproj", "{7F107B43-1AEA-49B9-B42F-50764A347F00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,7 @@ Global
 		{0F08D49B-85F9-4EDF-A7D6-28DAC7F6CBB5} = {F6AEC736-FFFB-4555-B4F4-C7D6D3FEE749}
 		{F828F2D0-1D8F-4200-A22D-7B4459890482} = {F6AEC736-FFFB-4555-B4F4-C7D6D3FEE749}
 		{3CFEBCAD-150D-49B9-8EC5-66889C92CA65} = {79DA85E1-2E93-4A6C-94E2-5FE8D686232B}
+		{7F107B43-1AEA-49B9-B42F-50764A347F00} = {79DA85E1-2E93-4A6C-94E2-5FE8D686232B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0F08D49B-85F9-4EDF-A7D6-28DAC7F6CBB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +36,9 @@ Global
 		{3CFEBCAD-150D-49B9-8EC5-66889C92CA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CFEBCAD-150D-49B9-8EC5-66889C92CA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CFEBCAD-150D-49B9-8EC5-66889C92CA65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F107B43-1AEA-49B9-B42F-50764A347F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F107B43-1AEA-49B9-B42F-50764A347F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F107B43-1AEA-49B9-B42F-50764A347F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F107B43-1AEA-49B9-B42F-50764A347F00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

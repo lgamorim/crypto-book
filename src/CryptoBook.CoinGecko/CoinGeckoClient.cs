@@ -6,7 +6,7 @@ using PriceMatrix = IDictionary<string, IDictionary<string, double>>;
 
 public class CoinGeckoClient : ICoinGeckoClient
 {
-    private const string ApiRootUrl = "https://api.coingecko.com/api/v3";
+    public const string ApiRootUrl = "https://api.coingecko.com/api/v3";
 
     private readonly HttpClient httpClient;
 
