@@ -31,7 +31,7 @@ public class CryptocurrencyService : ICryptocurrencyService
             {
                 var cryptoPrices = simplePriceResponse.CryptocurrencyPrices;
                 var currentPrice = new List<CoinPrice>(cryptoPrices?.Count ?? 0);
-                foreach (var id in cryptoPrices.Keys)
+                foreach (var id in cryptoPrices!.Keys)
                 {
                     var pricePerCurrency = new List<Price>(cryptoPrices[id].Count);
                     pricePerCurrency.AddRange(cryptoPrices[id].Keys.Select(currency => new Price(currency, cryptoPrices[id][currency])));

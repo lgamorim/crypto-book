@@ -76,7 +76,7 @@ public class CryptocurrencyServiceTests
     }
 
     [Fact]
-    public async void Should_GetCurrentPriceThrowArgumentException_When_GetCurrentPriceQueryCurrencyIsNull()
+    public async void Should_GetCurrentPriceThrowArgumentException_When_GetCurrentPriceQueryCurrenciesIsNull()
     {
         var getCurrentPriceQuery = new GetCurrentPriceQuery()
         {
