@@ -20,7 +20,7 @@ public class CoinGeckoClient : ICoinGeckoClient
         if (request is null) throw new ArgumentNullException(nameof(request));
         if (request.Coins is null) throw new ArgumentException(nameof(request.Coins));
         if (request.Currencies is null) throw new ArgumentException(nameof(request.Currencies));
-        
+
         const char separator = ',';
         var apiArgIds = string.Join(separator, request.Coins);
         var apiArgCurrencies = string.Join(separator, request.Currencies);
@@ -40,6 +40,38 @@ public class CoinGeckoClient : ICoinGeckoClient
         catch (Exception)
         {
             response = new SimplePriceResponse() { HasRequestSucceeded = false };
+        }
+
+        return response;
+    }
+
+    public async Task<CoinMarketChartResponse> GetCoinMarketChart(CoinMarketChartRequest request)
+    {
+        if (request is null) throw new ArgumentNullException(nameof(request));
+        if (request.Coin is null) throw new ArgumentException(nameof(request.Coin));
+        if (request.Currency is null) throw new ArgumentException(nameof(request.Currency));
+
+        var coinMarketChartApiUrl = $"{ApiRootUrl}/coins/{request.Coin}/market_chart?vs_currencies={request.Currency}&days={request.Days}";
+
+        CoinMarketChartResponse response;
+        try
+        {
+            var resultStream = await httpClient.GetStreamAsync(coinMarketChartApiUrl);
+            var marketChart = await JsonSerializer.DeserializeAsync<CoinMarketChartResponse.MarketChart>(resultStream);
+            response = new CoinMarketChartResponse()
+            {
+                HasRequestSucceeded = true,
+                HistoricalMarketData = marketChart ?? new CoinMarketChartResponse.MarketChart()
+                {
+                    Prices = new List<double[]>(),
+                    MarketCaps = new List<double[]>(),
+                    TotalVolumes = new List<double[]>()
+                }
+            };
+        }
+        catch (Exception)
+        {
+            response = new CoinMarketChartResponse() { HasRequestSucceeded = false };
         }
 
         return response;
